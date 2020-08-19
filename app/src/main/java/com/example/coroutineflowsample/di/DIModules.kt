@@ -4,6 +4,7 @@ import androidx.room.Room
 import com.example.coroutineflowsample.database.UserDatabase
 import com.example.coroutineflowsample.network.UserService
 import com.example.coroutineflowsample.repositories.UserRepository
+import com.example.coroutineflowsample.utils.MIGRATION_1_2
 import com.example.coroutineflowsample.viewmodels.MainViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -32,7 +33,9 @@ val viewModelModule = module {
 
 val databaseModule = module {
     single {
-        Room.databaseBuilder(androidContext(), UserDatabase::class.java, "UserDatabase").build()
+        Room.databaseBuilder(androidContext(), UserDatabase::class.java, "UserDatabase")
+            .addMigrations(MIGRATION_1_2)
+            .build()
     }
 
     factory {
