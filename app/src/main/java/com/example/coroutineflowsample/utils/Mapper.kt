@@ -8,7 +8,7 @@ fun List<UserResponseModel>.toEntity(): List<UserEntity> {
         UserEntity(
             id = response.id,
             name = response.name,
-            username = response.username,
+            surname = response.username,
             email = response.email,
             phone = response.phone,
             website = response.website

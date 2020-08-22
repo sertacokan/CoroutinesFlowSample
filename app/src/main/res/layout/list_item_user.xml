@@ -8,6 +8,10 @@
         <variable
             name="user"
             type="com.example.coroutineflowsample.database.UserEntity" />
+
+        <variable
+            name="userSelection"
+            type="com.example.coroutineflowsample.utils.UserItemSelection" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -18,6 +22,9 @@
         app:cardUseCompatPadding="true"
         app:contentPadding="8dp"
         app:strokeColor="@android:color/black"
+        android:checkable="true"
+        android:focusable="true"
+        android:onClick="@{() -> userSelection.onSelection(user)}"
         app:strokeWidth="1dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout

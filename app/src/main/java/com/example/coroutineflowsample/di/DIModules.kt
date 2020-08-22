@@ -1,11 +1,13 @@
 package com.example.coroutineflowsample.di
 
+import android.util.Log
 import androidx.room.Room
+import androidx.work.Configuration
 import com.example.coroutineflowsample.database.UserDatabase
 import com.example.coroutineflowsample.network.UserService
 import com.example.coroutineflowsample.repositories.UserRepository
-import com.example.coroutineflowsample.utils.MIGRATION_1_2
 import com.example.coroutineflowsample.viewmodels.MainViewModel
+import com.example.coroutineflowsample.worker.WorkersFactory
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -34,7 +36,6 @@ val viewModelModule = module {
 val databaseModule = module {
     single {
         Room.databaseBuilder(androidContext(), UserDatabase::class.java, "UserDatabase")
-            .addMigrations(MIGRATION_1_2)
             .build()
     }
 
@@ -45,6 +46,20 @@ val databaseModule = module {
 
 val repositoryModule = module {
     single {
-        UserRepository(get(), get())
+        UserRepository(get())
+    }
+}
+
+val workerModule = module {
+
+    single {
+        WorkersFactory(get(), get())
+    }
+
+    single {
+        Configuration.Builder()
+            .setMinimumLoggingLevel(Log.DEBUG)
+            .setWorkerFactory(get<WorkersFactory>())
+            .build()
     }
 }

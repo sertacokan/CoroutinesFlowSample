@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coroutineflowsample.database.UserEntity
 import com.example.coroutineflowsample.databinding.ListItemUserBinding
+import com.example.coroutineflowsample.utils.UserItemSelection
 
 class UserViewHolder private constructor(private val binding: ListItemUserBinding) :
     RecyclerView.ViewHolder(binding.root) {
@@ -17,9 +18,10 @@ class UserViewHolder private constructor(private val binding: ListItemUserBindin
         }
     }
 
-    fun bind(userEntity: UserEntity) {
-        binding.run {
+    fun bind(userEntity: UserEntity, selection: UserItemSelection) {
+        binding.apply {
             user = userEntity
+            userSelection = selection
             executePendingBindings()
         }
     }

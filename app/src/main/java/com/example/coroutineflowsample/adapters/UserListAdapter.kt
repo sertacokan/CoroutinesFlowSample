@@ -4,13 +4,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.coroutineflowsample.database.UserEntity
+import com.example.coroutineflowsample.utils.UserItemSelection
 import com.example.coroutineflowsample.viewholders.UserViewHolder
 
-class UserListAdapter : ListAdapter<UserEntity, UserViewHolder>(USER_DIFF_UTIL) {
+class UserListAdapter(private val selection: UserItemSelection) :
+    ListAdapter<UserEntity, UserViewHolder>(USER_DIFF_UTIL) {
 
     companion object {
         val USER_DIFF_UTIL = object : DiffUtil.ItemCallback<UserEntity>() {
-
             override fun areItemsTheSame(oldItem: UserEntity, newItem: UserEntity): Boolean {
                 return oldItem.id == newItem.id
             }
@@ -26,6 +27,6 @@ class UserListAdapter : ListAdapter<UserEntity, UserViewHolder>(USER_DIFF_UTIL) 
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), selection)
     }
 }
